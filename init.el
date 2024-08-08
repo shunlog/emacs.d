@@ -31,30 +31,31 @@
 
   ;; Keep backup and auto-save files in /tmp
   (backup-directory-alist
-		`((".*" . ,temporary-file-directory)))
+   `((".*" . ,temporary-file-directory)))
   (auto-save-file-name-transforms
-        `((".*" ,temporary-file-directory t)))
+   `((".*" ,temporary-file-directory t)))
 
   :config
   (delete-selection-mode t)
   (scroll-bar-mode t)
   (tool-bar-mode -1)
-  ;; Useful function to prevent other modes from overriding these bindings
+
+  ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
-   ("M-o" . other-window))
+   ;; Windows  
+   ("M-o" . other-window)
+   ("C-S-<right>" . windmove-right)
+   ("C-S-<left>" . windmove-left)
+   ("C-S-<up>" . windmove-up)
+   ("C-S-<down>" . windmove-down)
+   ("C-M-S-<right>" . windmove-swap-states-right)
+   ("C-M-S-<left>" . windmove-swap-states-left)
+   ("C-M-S-<up>" . windmove-swap-states-up)
+   ("C-M-S-<down>" . windmove-swap-states-down))
 
   (add-to-list 'auto-mode-alist '("\\.ts[mx]?\\'" . typescript-ts-mode))
   
   :bind
-  ;; Windows  
-  ("C-S-<right>" . #'windmove-right)
-  ("C-S-<left>" . #'windmove-left)
-  ("C-S-<up>" . #'windmove-up)
-  ("C-S-<down>" . #'windmove-down)
-  ("C-M-S-<right>" . #'windmove-swap-states-right)
-  ("C-M-S-<left>" . #'windmove-swap-states-left)
-  ("C-M-S-<up>" . #'windmove-swap-states-up)
-  ("C-M-S-<down>" . #'windmove-swap-states-down)
   ;; Buffers
   ("C-x C-b" . #'ibuffer)
   ;; Jump to file shortcuts, faster than bookmarks (e.g. init.el)
@@ -93,16 +94,6 @@
          ("<prior>" . #'View-scroll-half-page-backward)
          ("C-S-n" . #'scroll-up-line)
          ("C-S-p" . #'scroll-down-line)))
-
-
-(use-package org
-  :bind
-  (:map org-mode-map
-		("C-S-<right>" . nil)
-		("C-S-<left>" . nil))
-  (:map org-agenda-mode-map
-		("C-S-<right>" . nil)
-		("C-S-<left>" . nil)))
 
 
 (use-package dired
