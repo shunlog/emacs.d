@@ -320,19 +320,6 @@
   :ensure t)
 
 
-(use-package racket-mode
-  :ensure t
-  :custom
-  (racket-documentation-search-location "file:///usr/share/doc/racket/search/index.html?q=%s")
-  :hook
-  (racket-mode . racket-xp-mode)
-  (racket-repl-mode . (lambda () (setq truncate-lines t)))
-  :bind
-  (:map racket-xp-mode-map
-	("C-M-S-p" . racket-xp-previous-use)
-	("C-M-S-n" . racket-xp-next-use)))
-
-
 (use-package expand-region
   :ensure t
   :bind ("C-=" . er/expand-region))
@@ -403,6 +390,11 @@
   )
 
 
+;;;;;;;;;;;;;;;
+;; Languages ;;
+;;;;;;;;;;;;;;;
+
+
 (use-package nodejs-repl
   :ensure t)
 
@@ -413,6 +405,24 @@
   :mode "\\hledger.journal\\'"
   :custom
   (hledger-currency-string "MDL"))
+
+
+(use-package racket-mode
+  :ensure t
+  :custom
+  (racket-documentation-search-location "file:///usr/share/doc/racket/search/index.html?q=%s")
+  :hook
+  (racket-mode . racket-xp-mode)
+  (racket-repl-mode . (lambda () (setq truncate-lines t)))
+  :bind
+  (:map racket-xp-mode-map
+	("C-M-S-p" . racket-xp-previous-use)
+	("C-M-S-n" . racket-xp-next-use)))
+
+
+;;;;;;;;;;;;
+;; Custom ;;
+;;;;;;;;;;;;
 
 
 (custom-set-variables
