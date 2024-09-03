@@ -352,6 +352,11 @@
 	("M-S" . nil)))
 
 
+(use-package org
+  :custom
+  (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
+  )
+
 (use-package org-download
   :ensure t)
 
