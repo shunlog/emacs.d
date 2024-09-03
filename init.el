@@ -402,6 +402,15 @@
   (add-to-list 'pulsar-pulse-functions #'View-scroll-half-page-forward)
   (add-to-list 'pulsar-pulse-functions #'View-scroll-half-page-backward))
 
+
+;; Read ePub files
+(use-package nov
+  :ensure t
+  :demand t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+
 ;;;;;;;;;;;;;;;
 ;; Languages ;;
 ;;;;;;;;;;;;;;;
@@ -489,7 +498,7 @@
  '(indent-tabs-mode nil)
  '(isearch-wrap-pause 'no)
  '(package-selected-packages
-   '(pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(safe-local-variable-values
    '((eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
  '(typescript-ts-mode-indent-offset 2))
