@@ -51,7 +51,12 @@
    ("C-M-S-<right>" . windmove-swap-states-right)
    ("C-M-S-<left>" . windmove-swap-states-left)
    ("C-M-S-<up>" . windmove-swap-states-up)
-   ("C-M-S-<down>" . windmove-swap-states-down))
+   ("C-M-S-<down>" . windmove-swap-states-down)
+
+   ;; word movement
+   ("M-F" . forward-to-word)
+   ("M-B" . backward-to-word)
+   )
 
   (add-to-list 'auto-mode-alist '("\\.ts[mx]?\\'" . typescript-ts-mode))
   
