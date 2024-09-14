@@ -150,6 +150,53 @@
   :config
   (mp-setup-install-grammars))
 
+
+(use-package flycheck
+  :preface
+  
+  (defun mp-flycheck-eldoc (callback &rest _ignored)
+    "Print flycheck messages at point by calling CALLBACK."
+    (when-let ((flycheck-errors (and flycheck-mode (flycheck-overlay-errors-at (point)))))
+      (mapc
+       (lambda (err)
+         (funcall callback
+           (format "%s: %s"
+                   (let ((level (flycheck-error-level err)))
+                     (pcase level
+                       ('info (propertize "I" 'face 'flycheck-error-list-info))
+                       ('error (propertize "E" 'face 'flycheck-error-list-error))
+                       ('warning (propertize "W" 'face 'flycheck-error-list-warning))
+                       (_ level)))
+                   (flycheck-error-message err))
+           :thing (or (flycheck-error-id err)
+                      (flycheck-error-group err))
+           :face 'font-lock-doc-face))
+       flycheck-errors)))
+
+  (defun mp-flycheck-prefer-eldoc ()
+    (add-hook 'eldoc-documentation-functions #'mp-flycheck-eldoc nil t)
+    (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+    (setq flycheck-display-errors-function nil)
+    (setq flycheck-help-echo-function nil))
+
+  
+  :hook
+  ;; Eldoc messages in the echo area overwrite the flycheck errors,
+  ;; this merges them
+  ;; https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
+  ((flycheck-mode . mp-flycheck-prefer-eldoc)))
+
+
+(use-package eglot
+  :preface
+  (defun mp-eglot-eldoc ()
+    (setq eldoc-documentation-strategy
+          'eldoc-documentation-compose-eagerly))
+  ;; Make eglot echo area messages play nice with Eldoc, the echo area arbiter
+  ;; https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
+  :hook ((eglot-managed-mode . mp-eglot-eldoc)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; External packages ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
