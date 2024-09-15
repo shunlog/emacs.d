@@ -194,7 +194,10 @@
           'eldoc-documentation-compose-eagerly))
   ;; Make eglot echo area messages play nice with Eldoc, the echo area arbiter
   ;; https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
-  :hook ((eglot-managed-mode . mp-eglot-eldoc)))
+  :hook
+  ((eglot-managed-mode . mp-eglot-eldoc))
+  :config
+  (add-to-list 'eglot-stay-out-of 'eldoc))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
