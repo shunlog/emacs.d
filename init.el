@@ -425,6 +425,29 @@
   (org-roam-dailies-directory (file-truename "~/org/journal"))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-capture-templates
+   '(("i" "idea" plain "%?"
+      :if-new (file+head "ideas/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("b" "bibliography" plain "%?"
+      :if-new
+      (file+head "bibliography/%<%Y%m%d%H%M%S>-${title}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("w" "wiki" plain "%?"
+      :if-new (file+head "wiki/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("a" "agenda" plain "%?"
+      :if-new (file+head "agenda/${slug}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("A" "article" plain "%?"
+      :if-new
+      (file+head "articles/%<%Y%m%d%H%M%S>-${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+      :immediate-finish t
+      :unnarrowed t)))
   
   :bind (("C-c n b" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
