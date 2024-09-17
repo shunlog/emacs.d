@@ -200,6 +200,26 @@
   (add-to-list 'eglot-stay-out-of 'eldoc))
 
 
+(use-package org
+  :custom
+  (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
+  
+  :config
+
+  ;; My genius solution for trusting my org files!
+  ;; could generalize it to setting any local variables based on file path
+  (defun org-confirm-evaluate-disable ()
+    (interactive)
+    "Disable confirmation dialog on evaluating code blocks if inside org directory."
+    (condition-case nil
+        (let ((inside-org-dir
+               (string-prefix-p (expand-file-name org-directory)
+                                (file-name-directory buffer-file-name))))
+          (if inside-org-dir
+              (setq-local org-confirm-babel-evaluate nil)))))
+  (add-hook 'find-file-hook #'org-confirm-evaluate-disable))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; External packages ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -406,11 +426,6 @@
 	("M-s" . nil)
 	("M-S" . nil)))
 
-
-(use-package org
-  :custom
-  (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
-  )
 
 (use-package org-download
   :ensure t)
