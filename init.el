@@ -493,6 +493,13 @@
 ;; Languages ;;
 ;;;;;;;;;;;;;;;
 
+;; Format python files on save
+(use-package py-autopep8
+  :ensure t
+  :hook
+  ((python-ts-mode) . py-autopep8-mode)
+  ((python-mode) . py-autopep8-mode))
+
 
 (use-package nodejs-repl
   :ensure t)
@@ -575,8 +582,9 @@
        (mode . gnus-article-mode)))))
  '(indent-tabs-mode nil)
  '(isearch-wrap-pause 'no)
+ '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(package-selected-packages
-   '(nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(safe-local-variable-values
    '((eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
  '(typescript-ts-mode-indent-offset 2))
