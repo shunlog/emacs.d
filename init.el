@@ -1,3 +1,5 @@
+(require 'cl-lib)
+
 ;; Set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
@@ -212,10 +214,13 @@
     (interactive)
     "Disable confirmation dialog on evaluating code blocks if inside org directory."
     (condition-case nil
-        (let ((inside-org-dir
-               (string-prefix-p (expand-file-name org-directory)
-                                (file-name-directory buffer-file-name))))
-          (if inside-org-dir
+        (let* ((safe-directories `(,org-directory "~/uni/"))
+              (inside-safe-dir
+               (cl-some (lambda (dir-path)
+                          (string-prefix-p (expand-file-name dir-path)
+                                           (file-name-directory buffer-file-name)))
+                        safe-directories)))
+          (if inside-safe-dir
               (setq-local org-confirm-babel-evaluate nil)))))
   (add-hook 'find-file-hook #'org-confirm-evaluate-disable))
 
