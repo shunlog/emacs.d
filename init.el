@@ -61,6 +61,13 @@
    )
 
   (add-to-list 'auto-mode-alist '("\\.ts[mx]?\\'" . typescript-ts-mode))
+
+  ;; Erlang https://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html
+  (setq load-path (cons  "/usr/lib/erlang/lib/tools-4.0/emacs"
+                         load-path))
+  (setq erlang-root-dir "/usr/lib/erlang")
+  (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+  (require 'erlang-start)
   
   :bind
   ;; Buffers
