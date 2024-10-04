@@ -61,13 +61,6 @@
    )
 
   (add-to-list 'auto-mode-alist '("\\.ts[mx]?\\'" . typescript-ts-mode))
-
-  ;; Erlang https://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html
-  (setq load-path (cons  "/usr/lib/erlang/lib/tools-4.0/emacs"
-                         load-path))
-  (setq erlang-root-dir "/usr/lib/erlang")
-  (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-  (require 'erlang-start)
   
   :bind
   ;; Buffers
@@ -549,6 +542,23 @@
   (:map racket-xp-mode-map
 	("C-M-S-p" . racket-xp-previous-use)
 	("C-M-S-n" . racket-xp-next-use)))
+
+
+;; Erlang mode is loaded from local installation of Erlang
+;; https://adoptingerlang.org/docs/development/setup/#emacs
+(use-package erlang
+  :load-path ("/usr/lib/erlang/lib/tools-4.0/emacs/")
+  :mode (("\\.erl?$" . erlang-mode)
+         ("rebar\\.config$" . erlang-mode)
+         ("relx\\.config$" . erlang-mode)
+         ("sys\\.config\\.src$" . erlang-mode)
+         ("sys\\.config$" . erlang-mode)
+         ("\\.config\\.src?$" . erlang-mode)
+         ("\\.config\\.script?$" . erlang-mode)
+         ("\\.hrl?$" . erlang-mode)
+         ("\\.app?$" . erlang-mode)
+         ("\\.app.src?$" . erlang-mode)
+         ("\\Emakefile" . erlang-mode)))
 
 
 ;;;;;;;;;;;;
