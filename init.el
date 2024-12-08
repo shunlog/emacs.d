@@ -125,7 +125,8 @@
                (toml "https://github.com/tree-sitter/tree-sitter-toml")
                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))
+               (go "https://github.com/tree-sitter/tree-sitter-go")))
       (add-to-list 'treesit-language-source-alist grammar)
       ;; Only install `grammar' if we don't already have it
       ;; installed. However, if you want to *update* a grammar then
@@ -507,6 +508,11 @@
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 
+(use-package ox-hugo
+  :ensure t
+  :pin melpa
+  :after ox)
+
 ;;;;;;;;;;;;;;;
 ;; Languages ;;
 ;;;;;;;;;;;;;;;
@@ -543,11 +549,13 @@
 	("C-M-S-p" . racket-xp-previous-use)
 	("C-M-S-n" . racket-xp-next-use)))
 
+(use-package go-mode
+  :ensure t)
 
 ;; Erlang mode is loaded from local installation of Erlang
 ;; https://adoptingerlang.org/docs/development/setup/#emacs
 (use-package erlang
-  :load-path ("/usr/lib/erlang/lib/tools-4.0/emacs/")
+  :load-path ("/usr/lib/erlang/lib/tools-4.1/emacs/")
   :mode (("\\.erl?$" . erlang-mode)
          ("rebar\\.config$" . erlang-mode)
          ("relx\\.config$" . erlang-mode)
@@ -575,6 +583,7 @@
  '(bookmark-save-flag 1)
  '(custom-enabled-themes '(modus-operandi))
  '(find-file-visit-truename t)
+ '(go-ts-mode-indent-offset 4)
  '(ibuffer-saved-filter-groups '(("dired" ("Dired" (used-mode . dired-mode)))))
  '(ibuffer-saved-filters
    '(("nestjs-demo-api"
@@ -619,7 +628,7 @@
  '(isearch-wrap-pause 'no)
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(package-selected-packages
-   '(py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(safe-local-variable-values
    '((eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
  '(typescript-ts-mode-indent-offset 2))
