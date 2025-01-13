@@ -204,7 +204,8 @@
 (use-package org
   :custom
   (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
-  
+  (org-image-actual-width (list 500))
+
   :config
 
   ;; My genius solution for trusting my org files!
@@ -582,6 +583,7 @@
  '(blink-cursor-interval 0.4)
  '(bookmark-save-flag 1)
  '(custom-enabled-themes '(modus-operandi))
+ '(electric-pair-mode t)
  '(find-file-visit-truename t)
  '(go-ts-mode-indent-offset 4)
  '(ibuffer-saved-filter-groups '(("dired" ("Dired" (used-mode . dired-mode)))))
