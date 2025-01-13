@@ -433,7 +433,10 @@
 
 
 (use-package org-download
-  :ensure t)
+  :ensure t
+  :custom
+  (org-download-image-dir "./img")
+  (org-download-heading-lvl 0))
 
 
 (use-package org-roam
