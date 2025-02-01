@@ -638,9 +638,14 @@
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(package-selected-packages
    '(eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+ '(pixel-scroll-precision-interpolate-page nil)
+ '(pixel-scroll-precision-interpolation-factor 2.0)
+ '(pixel-scroll-precision-mode t)
  '(safe-local-variable-values
    '((eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
- '(typescript-ts-mode-indent-offset 2))
+ '(sentence-end-double-space nil)
+ '(typescript-ts-mode-indent-offset 2)
+ '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
