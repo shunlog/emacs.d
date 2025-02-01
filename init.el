@@ -554,8 +554,9 @@
   (racket-repl-mode . (lambda () (setq truncate-lines t)))
   :bind
   (:map racket-xp-mode-map
-	("C-M-S-p" . racket-xp-previous-use)
-	("C-M-S-n" . racket-xp-next-use)))
+        ("<f5>" . racket-run)
+	    ("C-M-S-p" . racket-xp-previous-use)
+	    ("C-M-S-n" . racket-xp-next-use)))
 
 (use-package go-mode
   :ensure t)
