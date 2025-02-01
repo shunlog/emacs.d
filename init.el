@@ -396,6 +396,10 @@
   :ensure t)
 
 
+;; My workflow:
+;; 1. Use consult-grep (or better consult-ripgrep) to write the query
+;; 2. Use embark-export ("C-. E") to get the grep buffer
+;; 3. Enter wgrep mode with "C-c C-p"
 (use-package wgrep
   :ensure t)
 
