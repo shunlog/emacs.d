@@ -564,7 +564,7 @@
 ;; Erlang mode is loaded from local installation of Erlang
 ;; https://adoptingerlang.org/docs/development/setup/#emacs
 (use-package erlang
-  :load-path ("/usr/lib/erlang/lib/tools-4.1/emacs/")
+  :load-path (lambda () (file-expand-wildcards "/usr/lib/erlang/lib/tools*/emacs"))
   :mode (("\\.erl?$" . erlang-mode)
          ("rebar\\.config$" . erlang-mode)
          ("relx\\.config$" . erlang-mode)
