@@ -558,8 +558,18 @@
 	    ("C-M-S-p" . racket-xp-previous-use)
 	    ("C-M-S-n" . racket-xp-next-use)))
 
+
+;; Common Lisp
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl"))
+
+
+;; Golang
 (use-package go-mode
   :ensure t)
+
 
 ;; Erlang mode is loaded from local installation of Erlang
 ;; https://adoptingerlang.org/docs/development/setup/#emacs
@@ -638,7 +648,7 @@
  '(isearch-wrap-pause 'no)
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(package-selected-packages
-   '(eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(pixel-scroll-precision-interpolate-page nil)
  '(pixel-scroll-precision-interpolation-factor 2.0)
  '(pixel-scroll-precision-mode t)
