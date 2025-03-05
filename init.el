@@ -1,5 +1,3 @@
-(require 'cl-lib)
-
 ;; Set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
@@ -14,10 +12,23 @@
 (require 'use-package)
 
 
+;; Fonts:
+
 (use-package emacs
-  :hook
-  (text-mode .  flyspell-mode)
-  
+  :config
+  (let ((font-name "Inconsolata LGC Nerd Font Mono"))
+    (when (member font-name (font-family-list))
+      (set-face-attribute 'default nil :family font-name :height 100)
+      (set-face-attribute 'fixed-pitch nil :family font-name :height 100)))
+
+  (let ((font-name "Source Sans Pro"))
+    (when (member font-name (font-family-list))
+      (set-face-attribute 'variable-pitch nil :family font-name :height 108)))
+  )
+
+;; Other config
+
+(use-package emacs
   :custom
   ;; Ignore case in completion systems
   (read-file-name-completion-ignore-case t)
@@ -42,6 +53,9 @@
   (scroll-bar-mode t)
   (tool-bar-mode -1)
 
+  ;; Make fringe background transparent (looks better for big margins from olivetti)
+  (set-face-background 'fringe (face-attribute 'default :background))
+  
   ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
    ;; Windows  
@@ -82,6 +96,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Built-in packages   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package flyspell-mode
+  :hook
+  (text-mode .  flyspell-mode))
 
 
 (use-package flymake
@@ -202,10 +220,15 @@
 
 
 (use-package org
+  :hook
+  (org-mode . variable-pitch-mode)
+  (org-mode . visual-line-mode)
+  
   :custom
   (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
   (org-image-actual-width (list 500))
-
+  (org-edit-src-content-indentation 0)
+  
   :config
 
   ;; My genius solution for trusting my org files!
@@ -222,8 +245,46 @@
                         safe-directories)))
           (if inside-safe-dir
               (setq-local org-confirm-babel-evaluate nil)))))
-  (add-hook 'find-file-hook #'org-confirm-evaluate-disable))
+  (add-hook 'find-file-hook #'org-confirm-evaluate-disable)
 
+  ;; We use variable-pitch mode in org,
+  ;; but some things should to stay in fixed-pitch:
+  (set-face-attribute 'org-block nil            :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil             :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil         :inherit '(shadow fixed-set))
+  (set-face-attribute 'org-special-keyword nil  :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil        :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil            :inherit 'fixed-pitch)
+  
+  ;; Increase the size of the Latex previews
+  (plist-put org-format-latex-options :scale 1.5)
+
+  ;; Resize Org headings
+  (dolist (face '((org-level-1 . 1.35)
+                  (org-level-2 . 1.25)
+                  (org-level-3 . 1.15)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+
+  ;; Make the document title a bit bigger
+  (set-face-attribute 'org-document-title nil :weight
+                      'bold :height 1.7)
+
+  
+  )
+
+;; Org-indent has 2 disadvantages:
+;; 1. (genrally) Wastes horizontal space
+;; 2. doesn't work with org-modern's code block fringes
+;; But just in case I'll ever want to give it another try:
+;; (use-package org-indent
+;;   :config
+;;   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; External packages ;;
@@ -436,6 +497,25 @@
 	("M-S" . nil)))
 
 
+;; Set margins and width of text content 
+(use-package olivetti
+  :ensure t
+  :hook (org-mode . olivetti-mode)
+  :custom
+  (olivetti-body-width 55))
+
+
+(use-package org-modern
+  :ensure t
+  :hook (org-mode . org-modern-mode)
+  :custom
+  (org-modern-fold-stars '(("⯈" . "⯆")
+                          ("▷" . "▽")
+                          ("▶" . "▼")
+                          ("▹" . "▿")
+                          ("▸" . "▾"))))
+
+
 (use-package org-download
   :ensure t
   :custom
@@ -447,7 +527,11 @@
   :after org
   :demand t
   :ensure t
+  :hook (org-roam-mode . variable-pitch-mode)
+  (org-roam-mode . visual-line-mode)
+  
   :custom
+  
   (org-roam-directory (file-truename "~/org"))
   (org-roam-dailies-directory (file-truename "~/org/journal"))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
@@ -497,6 +581,18 @@
   ;;             (setq-local display-buffer--same-window-action
   ;;                         '(display-buffer-use-some-window
   ;;                           (main)))))
+
+
+  (defun my/preview-fetcher ()
+    (let* ((elem (org-element-context))
+           (parent (org-element-property :parent elem)))
+      ;; TODO: alt handling for non-paragraph elements
+      (string-trim-right (buffer-substring-no-properties
+                          (org-element-property :begin parent)
+                          (org-element-property :end parent)))))
+
+  (setq org-roam-preview-function #'my/preview-fetcher)
+  
   )
 
 
@@ -600,6 +696,8 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-interval 0.4)
  '(bookmark-save-flag 1)
+ '(comint-input-ignoredups t)
+ '(comint-process-echoes t)
  '(custom-enabled-themes '(modus-operandi))
  '(electric-pair-mode t)
  '(find-file-visit-truename t)
@@ -647,13 +745,22 @@
  '(indent-tabs-mode nil)
  '(isearch-wrap-pause 'no)
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
+ '(org-pretty-entities t)
  '(package-selected-packages
-   '(macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(olivetti org-modern macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(pixel-scroll-precision-interpolate-page nil)
  '(pixel-scroll-precision-interpolation-factor 2.0)
  '(pixel-scroll-precision-mode t)
  '(safe-local-variable-values
-   '((eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
+   '((eval let
+           ((font-name "Indie Flower"))
+           (if
+               (member font-name
+                       (font-family-list))
+               (face-remap-add-relative 'default :height 130 :family font-name)
+             (message "Couldn't load font")))
+     (eval face-remap-add-relative 'default :family "Noto Serif")
+     (eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
  '(sentence-end-double-space nil)
  '(typescript-ts-mode-indent-offset 2)
  '(visible-bell t))
