@@ -583,6 +583,8 @@
   ;;                           (main)))))
 
 
+  ;; Display only the paragraph around the back-link in the org-roam buffer,
+  ;; instead of the entire file.
   (defun my/preview-fetcher ()
     (let* ((elem (org-element-context))
            (parent (org-element-property :parent elem)))
@@ -590,8 +592,18 @@
       (string-trim-right (buffer-substring-no-properties
                           (org-element-property :begin parent)
                           (org-element-property :end parent)))))
-
   (setq org-roam-preview-function #'my/preview-fetcher)
+
+  ;; Display org-roam buffer in a side window
+  (add-to-list 'display-buffer-alist
+             '("\\*org-roam\\*"
+               (display-buffer-in-direction)
+               (direction . right)
+               (window-width . 0.33)
+               (window-height . fit-window-to-buffer)))
+  ;; And open file links in the current window (to not overwrite the roam buffer)
+  (setq org-link-frame-setup
+      '((file . find-file)))  ;; Ensures links open in the current window
   
   )
 
