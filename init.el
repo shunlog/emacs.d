@@ -16,14 +16,12 @@
 
 (use-package emacs
   :config
-  (let ((font-name "Inconsolata LGC Nerd Font Mono"))
-    (when (member font-name (font-family-list))
-      (set-face-attribute 'default nil :family font-name :height 100)
-      (set-face-attribute 'fixed-pitch nil :family font-name :height 100)))
+  (let ((font-name "Source Code Pro"))
+    (set-face-attribute 'default nil :family font-name :height 100)
+    (set-face-attribute 'fixed-pitch nil :family font-name :height 100))
 
   (let ((font-name "Source Sans Pro"))
-    (when (member font-name (font-family-list))
-      (set-face-attribute 'variable-pitch nil :family font-name :height 108)))
+    (set-face-attribute 'variable-pitch nil :family font-name :height 108))
   )
 
 ;; Other config
@@ -275,6 +273,10 @@
   (set-face-attribute 'org-document-title nil :weight
                       'bold :height 1.7)
 
+  ;; Distinguish org link types
+  (org-link-set-parameters
+   "id"
+   :face '(:foreground "darkgreen" :underline t))
   
   )
 
@@ -759,7 +761,7 @@
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(org-pretty-entities t)
  '(package-selected-packages
-   '(olivetti org-modern macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(nerd-icons olivetti org-modern macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
  '(pixel-scroll-precision-interpolate-page nil)
  '(pixel-scroll-precision-interpolation-factor 2.0)
  '(pixel-scroll-precision-mode t)
