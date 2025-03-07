@@ -225,6 +225,8 @@
   (org-cite-global-bibliography (list (file-truename "~/org/bibliography/global.bib")))
   (org-image-actual-width (list 500))
   (org-edit-src-content-indentation 0)
+  ;; Fold property drawers
+  (org-startup-folded 'nofold)
   
   :config
 
@@ -246,7 +248,7 @@
 
   ;; We use variable-pitch mode in org,
   ;; but some things should to stay in fixed-pitch:
-  (set-face-attribute 'org-block nil            :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-block nil            :foreground 'unspecified :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil             :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-verbatim nil         :inherit '(shadow fixed-set))
   (set-face-attribute 'org-special-keyword nil  :inherit '(font-lock-comment-face fixed-pitch))
@@ -503,18 +505,22 @@
   :ensure t
   :hook (org-mode . olivetti-mode)
   :custom
-  (olivetti-body-width 55))
+  (olivetti-body-width 65))
 
 
 (use-package org-modern
   :ensure t
   :hook (org-mode . org-modern-mode)
   :custom
+  ;; Use circle symbols instead of triangles
+  (org-modern-star 'replace)
+  ;; They are different sizes anyway,
+  ;; and the hollow triangles don't look good when small
   (org-modern-fold-stars '(("⯈" . "⯆")
-                          ("▷" . "▽")
-                          ("▶" . "▼")
-                          ("▹" . "▿")
-                          ("▸" . "▾"))))
+                           ("⯈" . "⯆")
+                           ("⯈" . "⯆")
+                           ("⯈" . "⯆")
+                           ("⯈" . "⯆"))))
 
 
 (use-package org-download
