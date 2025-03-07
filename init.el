@@ -57,7 +57,6 @@
   ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
    ;; Windows  
-   ("M-o" . other-window)
    ("C-S-<right>" . windmove-right)
    ("C-S-<left>" . windmove-left)
    ("C-S-<up>" . windmove-up)
