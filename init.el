@@ -17,6 +17,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package emacs
+  :custom
+  
+  (frame-resize-pixelwise t)
+  
   :config
   (let ((font-name "Source Code Pro"))
     (set-face-attribute 'default nil :family font-name :height 100)
