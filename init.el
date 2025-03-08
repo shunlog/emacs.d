@@ -79,6 +79,7 @@
   (delete-selection-mode t)
   (scroll-bar-mode t)
   (tool-bar-mode -1)
+  (menu-bar-mode -1)
   
   ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
