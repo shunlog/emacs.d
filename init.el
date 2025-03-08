@@ -12,7 +12,9 @@
 (require 'use-package)
 
 
-;; Fonts:
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;    Fonts and Theme ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package emacs
   :config
@@ -22,9 +24,36 @@
 
   (let ((font-name "Source Sans Pro"))
     (set-face-attribute 'variable-pitch nil :family font-name :height 108))
+
+  
+  (require-theme 'modus-themes) ; `require-theme' is ONLY for the built-in Modus themes
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-headings
+        '((0 . (1.5))
+          (1 . (1.4))
+          (2 . (1.3))
+          (3 . (1.2))
+          (4 . (1.1))))
+
+  ;; Make comments stand out
+  (setq modus-themes-common-palette-overrides
+        '((comment red-intense)))
+  (custom-set-faces
+   '(olivetti-fringe ((t :inherit default :background unspecified))))
+
+  ;; You can pick a preset palette for a change:
+  ;; (setq modus-themes-common-palette-overrides
+  ;;       modus-themes-preset-overrides-faint)
+
+  ;; Load the theme of your choice.
+  (load-theme 'modus-vivendi-tinted :no-confirm)
   )
 
-;; Other config
+
+;;;;;;;;;;;;;;;;;;;;
+;; Default config ;;
+;;;;;;;;;;;;;;;;;;;;
+
 
 (use-package emacs
   :custom
@@ -50,9 +79,6 @@
   (delete-selection-mode t)
   (scroll-bar-mode t)
   (tool-bar-mode -1)
-
-  ;; Make fringe background transparent (looks better for big margins from olivetti)
-  (set-face-background 'fringe (face-attribute 'default :background))
   
   ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
@@ -255,24 +281,10 @@
   (set-face-attribute 'org-meta-line nil        :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil         :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil            :inherit 'fixed-pitch)
-  
+
   ;; Increase the size of the Latex previews
   (plist-put org-format-latex-options :scale 1.5)
-
-  ;; Resize Org headings
-  (dolist (face '((org-level-1 . 1.35)
-                  (org-level-2 . 1.25)
-                  (org-level-3 . 1.15)
-                  (org-level-4 . 1.1)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
-
-  ;; Make the document title a bit bigger
-  (set-face-attribute 'org-document-title nil :weight
-                      'bold :height 1.7)
+  
 
   ;; Distinguish org link types
   (org-link-set-parameters
@@ -280,6 +292,7 @@
    :face '(:foreground "darkgreen" :underline t))
   
   )
+
 
 ;; Org-indent has 2 disadvantages:
 ;; 1. (genrally) Wastes horizontal space
@@ -505,7 +518,8 @@
   :ensure t
   :hook (org-mode . olivetti-mode)
   :custom
-  (olivetti-body-width 65))
+  (olivetti-body-width 65)
+)
 
 
 (use-package org-modern
@@ -717,7 +731,8 @@
  '(bookmark-save-flag 1)
  '(comint-input-ignoredups t)
  '(comint-process-echoes t)
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-safe-themes
+   '("2e7dc2838b7941ab9cabaa3b6793286e5134f583c04bde2fba2f4e20f2617cf7" "712dda0818312c175a60d94ba676b404fc815f8c7e6c080c9b4061596c60a1db" "fbf73690320aa26f8daffdd1210ef234ed1b0c59f3d001f342b9c0bbf49f531c" default))
  '(electric-pair-mode t)
  '(find-file-visit-truename t)
  '(go-ts-mode-indent-offset 4)
@@ -788,4 +803,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-face ((t (:inherit modus-themes-slant :foreground "OrangeRed2")))))
+ )
