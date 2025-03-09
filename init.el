@@ -45,9 +45,15 @@
   (custom-set-faces
    '(olivetti-fringe ((t :inherit default :background unspecified))))
 
-  ;; You can pick a preset palette for a change:
+  ;; Distinguish org link types
+  (modus-themes-with-colors
+    (org-link-set-parameters
+     "id"
+     :face `(:foreground ,green :underline t)))
+  
+  ;; ;; You can pick a preset palette for a change:
   ;; (setq modus-themes-common-palette-overrides
-  ;;       modus-themes-preset-overrides-faint)
+  ;;       modus-themes-preset-overrides-intense)
 
   ;; Load the theme of your choice.
   (load-theme 'modus-vivendi-tinted :no-confirm)
@@ -289,12 +295,6 @@
 
   ;; Increase the size of the Latex previews
   (plist-put org-format-latex-options :scale 1.5)
-  
-
-  ;; Distinguish org link types
-  (org-link-set-parameters
-   "id"
-   :face '(:foreground "darkgreen" :underline t))
   
   )
 
@@ -803,9 +803,3 @@
  '(sentence-end-double-space nil)
  '(typescript-ts-mode-indent-offset 2)
  '(visible-bell t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
