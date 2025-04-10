@@ -44,6 +44,13 @@
         '((comment red-intense)))
   (custom-set-faces
    '(olivetti-fringe ((t :inherit default :background unspecified))))
+
+  (require 'org)
+  ;; Distinguish org link types
+  (modus-themes-with-colors
+    (org-link-set-parameters
+     "id"
+     :face `(:foreground ,green :underline t)))
   
   ;; ;; You can pick a preset palette for a change:
   ;; (setq modus-themes-common-palette-overrides
