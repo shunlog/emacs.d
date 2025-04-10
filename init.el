@@ -22,12 +22,14 @@
   (frame-resize-pixelwise t)
   
   :config
-  (let ((font-name "Source Code Pro"))
-    (set-face-attribute 'default nil :family font-name :height 100)
-    (set-face-attribute 'fixed-pitch nil :family font-name :height 100))
+  (let ((font-name "Source Code Pro")
+        (height (if (eq system-type 'darwin) 162 100)))
+    (set-face-attribute 'default nil :family font-name :height height)
+    (set-face-attribute 'fixed-pitch nil :family font-name :height height))
 
-  (let ((font-name "Source Sans Pro"))
-    (set-face-attribute 'variable-pitch nil :family font-name :height 108))
+  (let ((font-name "Source Sans Pro")
+        (height (if (eq system-type 'darwin) 180 108)))
+    (set-face-attribute 'variable-pitch nil :family font-name :height height))
 
   
   (require-theme 'modus-themes) ; `require-theme' is ONLY for the built-in Modus themes
@@ -120,7 +122,10 @@
    )
 
   (add-to-list 'auto-mode-alist '("\\.ts[mx]?\\'" . typescript-ts-mode))
-  
+
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program "gls"))
+    
   :bind
   ;; Buffers
   ("C-x C-b" . #'ibuffer)
@@ -726,7 +731,9 @@
 ;; Erlang mode is loaded from local installation of Erlang
 ;; https://adoptingerlang.org/docs/development/setup/#emacs
 (use-package erlang
-  :load-path (lambda () (file-expand-wildcards "/usr/lib/erlang/lib/tools*/emacs"))
+  :load-path (lambda () (if (eq system-type 'darwin)
+                            (file-expand-wildcards "/usr/local/lib/erlang/lib/tools*/emacs")
+                            (file-expand-wildcards "/usr/lib/erlang/lib/tools*/emacs")))
   :mode (("\\.erl?$" . erlang-mode)
          ("rebar\\.config$" . erlang-mode)
          ("relx\\.config$" . erlang-mode)
