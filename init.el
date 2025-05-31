@@ -152,7 +152,14 @@
   :bind (("<next>" . #'View-scroll-half-page-forward)
          ("<prior>" . #'View-scroll-half-page-backward)
          ("C-S-n" . #'scroll-up-line)
-         ("C-S-p" . #'scroll-down-line)))
+         ("C-S-p" . #'scroll-down-line))
+  :config
+  ;; Don't let precision-mode override the <next> and <prior> binds
+  (add-hook 'pixel-scroll-precision-mode-hook
+            (lambda ()
+              (when pixel-scroll-precision-mode
+                (define-key pixel-scroll-precision-mode-map [next] #'View-scroll-half-page-forward)
+                (define-key pixel-scroll-precision-mode-map [prior] #'View-scroll-half-page-backward)))))
 
 
 (use-package dired
