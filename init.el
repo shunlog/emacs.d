@@ -747,70 +747,69 @@
  '(bookmark-save-flag 1)
  '(comint-input-ignoredups t)
  '(comint-process-echoes t)
+ '(confirm-kill-emacs 'y-or-n-p)
  '(custom-safe-themes
-   '("2e7dc2838b7941ab9cabaa3b6793286e5134f583c04bde2fba2f4e20f2617cf7" "712dda0818312c175a60d94ba676b404fc815f8c7e6c080c9b4061596c60a1db" "fbf73690320aa26f8daffdd1210ef234ed1b0c59f3d001f342b9c0bbf49f531c" default))
+   '("2e7dc2838b7941ab9cabaa3b6793286e5134f583c04bde2fba2f4e20f2617cf7"
+     "712dda0818312c175a60d94ba676b404fc815f8c7e6c080c9b4061596c60a1db"
+     "fbf73690320aa26f8daffdd1210ef234ed1b0c59f3d001f342b9c0bbf49f531c"
+     default))
  '(electric-pair-mode t)
  '(find-file-visit-truename t)
  '(go-ts-mode-indent-offset 4)
  '(ibuffer-saved-filter-groups '(("dired" ("Dired" (used-mode . dired-mode)))))
  '(ibuffer-saved-filters
    '(("nestjs-demo-api"
-      (or
-       (mode . json-mode)
-       (mode . typescript-ts-mode))
+      (or (mode . json-mode) (mode . typescript-ts-mode))
       (filename . "nestjs"))
      ("programming"
-      (or
-       (derived-mode . prog-mode)
-       (mode . ess-mode)
-       (mode . compilation-mode)))
+      (or (derived-mode . prog-mode) (mode . ess-mode)
+          (mode . compilation-mode)))
      ("text document"
-      (and
-       (derived-mode . text-mode)
-       (not
-        (starred-name))))
+      (and (derived-mode . text-mode) (not (starred-name))))
      ("TeX"
-      (or
-       (derived-mode . tex-mode)
-       (mode . latex-mode)
-       (mode . context-mode)
-       (mode . ams-tex-mode)
-       (mode . bibtex-mode)))
+      (or (derived-mode . tex-mode) (mode . latex-mode)
+          (mode . context-mode) (mode . ams-tex-mode)
+          (mode . bibtex-mode)))
      ("web"
-      (or
-       (derived-mode . sgml-mode)
-       (derived-mode . css-mode)
-       (mode . javascript-mode)
-       (mode . js2-mode)
-       (mode . scss-mode)
-       (derived-mode . haml-mode)
-       (mode . sass-mode)))
+      (or (derived-mode . sgml-mode) (derived-mode . css-mode)
+          (mode . javascript-mode) (mode . js2-mode)
+          (mode . scss-mode) (derived-mode . haml-mode)
+          (mode . sass-mode)))
      ("gnus"
-      (or
-       (mode . message-mode)
-       (mode . mail-mode)
-       (mode . gnus-group-mode)
-       (mode . gnus-summary-mode)
-       (mode . gnus-article-mode)))))
+      (or (mode . message-mode) (mode . mail-mode)
+          (mode . gnus-group-mode) (mode . gnus-summary-mode)
+          (mode . gnus-article-mode)))))
  '(indent-tabs-mode nil)
  '(isearch-wrap-pause 'no)
+ '(ispell-dictionary "en_US")
+ '(ispell-personal-dictionary "~/aspell.pws")
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(org-pretty-entities t)
  '(package-selected-packages
-   '(nerd-icons olivetti org-modern macrostep slime eglot go-mode ox-hugo py-autopep8 nov pulsar nodejs-repl bookmark-view embark-consult wgrep org-download embark marginalia hledger-mode vertico-mouse magit corfu orderless consult vertico expand-region use-package org-roam evil-org))
+   '(nerd-icons olivetti org-modern macrostep slime eglot go-mode ox-hugo
+                py-autopep8 nov pulsar nodejs-repl bookmark-view
+                embark-consult wgrep org-download embark marginalia
+                hledger-mode vertico-mouse magit corfu orderless
+                consult vertico expand-region use-package org-roam
+                evil-org))
  '(pixel-scroll-precision-interpolate-page nil)
  '(pixel-scroll-precision-interpolation-factor 2.0)
  '(pixel-scroll-precision-mode t)
  '(safe-local-variable-values
-   '((eval let
-           ((font-name "Indie Flower"))
-           (if
-               (member font-name
-                       (font-family-list))
-               (face-remap-add-relative 'default :height 130 :family font-name)
+   '((eval let ((font-name "Indie Flower"))
+           (if (member font-name (font-family-list))
+               (face-remap-add-relative 'default :height 130 :family
+                                        font-name)
              (message "Couldn't load font")))
      (eval face-remap-add-relative 'default :family "Noto Serif")
-     (eval face-remap-add-relative 'default :height 1.3 :family "Noto Serif")))
+     (eval face-remap-add-relative 'default :height 1.3 :family
+           "Noto Serif")))
  '(sentence-end-double-space nil)
  '(typescript-ts-mode-indent-offset 2)
  '(visible-bell t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(olivetti-fringe ((t :inherit default :background unspecified))))
