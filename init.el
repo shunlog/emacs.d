@@ -106,7 +106,7 @@
   
   ;; bind-keys* prevents other modes from overriding these bindings
   (bind-keys*
-   ;; Windows  
+   ;; Window management
    ("C-S-<right>" . windmove-right)
    ("C-S-<left>" . windmove-left)
    ("C-S-<up>" . windmove-up)
@@ -115,6 +115,13 @@
    ("C-M-S-<left>" . windmove-swap-states-left)
    ("C-M-S-<up>" . windmove-swap-states-up)
    ("C-M-S-<down>" . windmove-swap-states-down)
+
+   ;; macOS
+   ;; on macos, GUI back/forward are not there,
+   ;; but on firefox it's command-[ and command-]
+   ("s-[" . previous-buffer)
+   ("s-]" . next-buffer)
+   
 
    ;; word movement
    ("M-F" . forward-to-word)
@@ -761,7 +768,7 @@
  '(bookmark-save-flag 1)
  '(comint-input-ignoredups t)
  '(comint-process-echoes t)
- '(confirm-kill-emacs 'y-or-n-p)
+ '(confirm-kill-emacs 'yes-or-no-p)
  '(custom-safe-themes
    '("2e7dc2838b7941ab9cabaa3b6793286e5134f583c04bde2fba2f4e20f2617cf7"
      "712dda0818312c175a60d94ba676b404fc815f8c7e6c080c9b4061596c60a1db"
@@ -827,3 +834,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(olivetti-fringe ((t :inherit default :background unspecified))))
+(put 'scroll-left 'disabled nil)
