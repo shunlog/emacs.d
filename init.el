@@ -22,7 +22,7 @@
   (frame-resize-pixelwise t)
   
   :config
-  (let ((font-name "Source Code Pro")
+  (let ((font-name "JetBrainsMono Nerd Font")
         (height (if (eq system-type 'darwin) 162 100)))
     (set-face-attribute 'default nil :family font-name :height height)
     (set-face-attribute 'fixed-pitch nil :family font-name :height height))
