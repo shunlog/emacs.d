@@ -689,6 +689,15 @@
 ;; Languages ;;
 ;;;;;;;;;;;;;;;
 
+(use-package python
+  :config
+  (if (executable-find "ipython")
+    (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args "-i --simple-prompt")
+    (message "Warning: ipython not found in PATH. Using default python REPL."))
+)
+
+
 ;; Format python files on save
 (use-package py-autopep8
   :ensure t
