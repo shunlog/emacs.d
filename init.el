@@ -146,7 +146,7 @@
 ;;;;;;;;;;;;;;;;;
 
 (use-package toggle-split
-  :ensure t
+  :load-path "my-packages/toggle-split"
   :bind
   (("C-x w t" . #'toggle-window-split)))
 
