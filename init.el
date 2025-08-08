@@ -729,7 +729,9 @@
   (:map racket-xp-mode-map
         ("<f5>" . racket-run)
 	    ("C-M-S-p" . racket-xp-previous-use)
-	    ("C-M-S-n" . racket-xp-next-use)))
+	    ("C-M-S-n" . racket-xp-next-use)
+        ("M-n" . next-error)
+        ("M-p" . previous-error)))
 
 
 ;; Common Lisp
