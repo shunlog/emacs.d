@@ -813,22 +813,15 @@
           (mode . gnus-article-mode)))))
  '(indent-tabs-mode nil)
  '(isearch-wrap-pause 'no)
- '(ispell-dictionary "en_US")
- '(ispell-personal-dictionary "~/aspell.pws")
  '(org-babel-load-languages '((python . t) (emacs-lisp . t)))
  '(org-pretty-entities t)
- '(package-selected-packages
-   '(nerd-icons olivetti org-modern macrostep slime eglot go-mode ox-hugo
-                py-autopep8 nov pulsar nodejs-repl bookmark-view
-                embark-consult wgrep org-download embark marginalia
-                hledger-mode vertico-mouse magit corfu orderless
-                consult vertico expand-region use-package org-roam
-                evil-org))
+ '(package-selected-packages nil)
  '(pixel-scroll-precision-interpolate-page nil)
  '(pixel-scroll-precision-interpolation-factor 2.0)
  '(pixel-scroll-precision-mode t)
  '(safe-local-variable-values
-   '((eval let ((font-name "Indie Flower"))
+   '((python-shell-virtualenv-root . "../.venv")
+     (eval let ((font-name "Indie Flower"))
            (if (member font-name (font-family-list))
                (face-remap-add-relative 'default :height 130 :family
                                         font-name)
